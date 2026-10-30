@@ -2,7 +2,7 @@ import type {TaskListProps} from "../../types";
 import TaskItem from "./TaskItem";
 
 
-function TaskList({ tasks,onUpdateStatus,onDeleteTask }: TaskListProps) {
+function TaskList({ tasks,onUpdateStatus,onDeleteTask,onEditTask }: TaskListProps) {
   return (
     <div>
       <h2>My Tasks</h2>
@@ -12,7 +12,8 @@ function TaskList({ tasks,onUpdateStatus,onDeleteTask }: TaskListProps) {
         key={task.id} 
         task={task} 
         onUpdateStatus={onUpdateStatus}
-        onDeleteTask={onDeleteTask}/>
+        onDeleteTask={onDeleteTask}
+        onEditTask={onEditTask}/>
       ))}
     </div>
   );

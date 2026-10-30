@@ -4,8 +4,9 @@ interface TaskItemProps {
   task: Task;
   onUpdateStatus: (id: string, newStatus: Status) => void;
   onDeleteTask: (id: string) => void;
+  onEditTask?: (task: Task) => void;
 }
-function TaskItem({ task, onUpdateStatus, onDeleteTask }: TaskItemProps) {
+function TaskItem({ task, onUpdateStatus, onDeleteTask, onEditTask }: TaskItemProps) {
   return (
     <div>
       <h3>{task.title}</h3>
@@ -28,6 +29,13 @@ function TaskItem({ task, onUpdateStatus, onDeleteTask }: TaskItemProps) {
       >
         Delete
       </button>
+      {onEditTask && (
+        <button
+          onClick={() => onEditTask(task)}
+        >
+          Edit
+        </button>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import TaskForm from "../TaskForm/TaskForm";
 
 export default function Dashboard() {
     // Create one sample task
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: "1",
@@ -35,12 +36,32 @@ export default function Dashboard() {
     <div>
       <p>Manage your daily tasks in one place.</p>
 
-      <TaskForm onSubmit={(taskData) => {
-        const newTask: Task = {...taskData,id: Date.now().toString()};
+      <TaskForm
+       key={editingTask?.id ?? "new"}
+       initialTask={editingTask} 
+        onSubmit={(taskData) => {
+        if (editingTask) {
+        // Update the existing task
+        setTasks(
+        tasks.map((task) =>
+            task.id === editingTask.id
+            ? { ...task, ...taskData }
+            : task
+        )
+        );
+  
+        setEditingTask(null);
+    } else {
+        // Add a new task
+        const newTask: Task = {
+        ...taskData,
+        id: Date.now().toString()
+        };
 
         setTasks([...tasks, newTask]);
-  }} />
-
+    }
+    }}
+></TaskForm>
     <TaskList
       tasks={tasks}
     //   update the status of a task
@@ -56,6 +77,9 @@ export default function Dashboard() {
         // Filter out the task with the given id
         setTasks(tasks.filter((task) => task.id !== id));
         console.log("Deleted task:", id);
+      }}
+      onEditTask={(task) => {
+        setEditingTask(task);
       }}
     />
     </div>
