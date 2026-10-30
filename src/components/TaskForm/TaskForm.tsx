@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Priority } from "../../types";
+import type { Priority,Status } from "../../types";
 
 
 function TaskForm() {
@@ -7,6 +7,7 @@ function TaskForm() {
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState<Priority>("Medium");
     const [dueDate, setDueDate] = useState("");
+    const [status, setStatus] = useState<Status>("Pending");
 
   return (
     <div>
@@ -41,6 +42,18 @@ function TaskForm() {
             <option value="High">High</option>
           </select>
         </div>
+        <div>
+            <label>Status</label>
+            <select
+                value={status}
+                onChange={(event) =>
+                setStatus(event.target.value as Status)
+                }>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+            </div>
         <div>
           <label>Due Date</label>
           <input
