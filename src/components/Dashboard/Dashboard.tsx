@@ -5,8 +5,13 @@ import TaskForm from "../TaskForm/TaskForm";
 
 export default function Dashboard() {
     // Create one sample task
+// State for filtering tasks by status
+  const [statusFilter, setStatusFilter] = useState("All");
+//   State for search query
   const [searchQuery, setSearchQuery] = useState("");
+//   State for the task currently being edited
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  // State for the list of tasks
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: "1",
@@ -64,7 +69,8 @@ export default function Dashboard() {
     }
     }}
       />
-      <div>
+    <div>
+    {/* Search input for tasks */}
     <input
         type="text"
         placeholder="Search tasks..."
@@ -72,10 +78,31 @@ export default function Dashboard() {
         onChange={(e) => setSearchQuery(e.target.value)}
     />
     </div>
+    {/* Task filtering and search section */}
+    <div>
+        <label>Filter by Status: </label>
+
+        <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+        >
+            <option value="All">All</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
     <TaskList
-      tasks={tasks.filter((task) =>
-    task.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )}
+      tasks={tasks.filter((task) => {
+        const matchesSearch = task.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+        const matchesStatus =
+        statusFilter === "All" || task.status === statusFilter;
+
+        return matchesSearch && matchesStatus;
+    })}
     //   update the status of a task
       onUpdateStatus={(id, newStatus) => {
         // Update the status of the task with the given id
