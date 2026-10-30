@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Priority,Status,TaskFormProps } from "../../types";
 
 // TaskForm component allows users to add a new task with title, description, priority, due date, and status.
-function TaskForm({onSubmit,initialTask}: TaskFormProps) {
+function TaskForm({onSubmit,initialTask,onCancel}: TaskFormProps) {
     const [title, setTitle] = useState(initialTask?.title ?? "");
     const [description, setDescription] = useState(initialTask?.description ?? "");
     const [priority, setPriority] = useState<Priority>(initialTask?.priority ?? "Medium");
@@ -84,6 +84,12 @@ function TaskForm({onSubmit,initialTask}: TaskFormProps) {
         </div>
 
         <button type="submit">{initialTask ? "Update Task" : "Add Task"}</button>
+        {/* Show the cancel button only when editing an existing task */}
+        {initialTask && onCancel && (
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
       </form>
     </div>
   );

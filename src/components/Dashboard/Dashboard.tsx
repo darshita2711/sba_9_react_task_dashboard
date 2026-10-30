@@ -5,6 +5,7 @@ import TaskForm from "../TaskForm/TaskForm";
 
 export default function Dashboard() {
     // Create one sample task
+  const [searchQuery, setSearchQuery] = useState("");
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [tasks, setTasks] = useState<Task[]>([
     {
@@ -39,6 +40,7 @@ export default function Dashboard() {
       <TaskForm
        key={editingTask?.id ?? "new"}
        initialTask={editingTask} 
+       onCancel={() => setEditingTask(null)}
         onSubmit={(taskData) => {
         if (editingTask) {
         // Update the existing task
@@ -61,9 +63,19 @@ export default function Dashboard() {
         setTasks([...tasks, newTask]);
     }
     }}
-></TaskForm>
+      />
+      <div>
+    <input
+        type="text"
+        placeholder="Search tasks..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+    />
+    </div>
     <TaskList
-      tasks={tasks}
+      tasks={tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )}
     //   update the status of a task
       onUpdateStatus={(id, newStatus) => {
         // Update the status of the task with the given id
