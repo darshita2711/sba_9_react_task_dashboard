@@ -54,9 +54,11 @@ export default function Dashboard() {
     const sortedTasks = sortTasks(filteredTasks, sortBy);
 
     return (
-        <div>
-            <p>Manage your daily tasks in one place.</p>
-
+        <div className="space-y-6">
+            <p className="text-slate-600">
+                Manage your daily tasks in one place.
+            </p>
+            <section className="rounded-xl bg-white p-6 shadow-sm">
             <TaskForm
                 key={editingTask?.id ?? "new"}
                 initialTask={editingTask}
@@ -84,6 +86,13 @@ export default function Dashboard() {
                     }
                 }}
             />
+            </section>
+              {/* Search and Filters */}
+            <section className="rounded-xl bg-white p-6 shadow-sm">
+
+                <h2 className="mb-4 text-lg font-semibold text-slate-800">
+                    Search and Filter Tasks
+                </h2>
             <div>
                 {/* Search input for tasks */}
                 <input
@@ -91,15 +100,21 @@ export default function Dashboard() {
                     placeholder="Search tasks..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                     className="mb-5 w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
             </div>
             {/* Task filtering and search section */}
-            <div>
-                <label>Filter by Status: </label>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+                    <div>
+                        <label className="mb-2 block text-sm font-medium text-slate-700">
+                            Filter by Status
+                        </label>
 
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 outline-none focus:border-blue-500"
                 >
                     <option value="All">All</option>
                     <option value="Pending">Pending</option>
@@ -108,11 +123,14 @@ export default function Dashboard() {
                 </select>
             </div>
             <div>
-                <label>Filter by Priority: </label>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                            Filter by Priority
+                        </label>
 
                 <select
                     value={priorityFilter}
                     onChange={(e) => setPriorityFilter(e.target.value)}
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 outline-none focus:border-blue-500"
                 >
                     <option value="All">All</option>
                     <option value="Low">Low</option>
@@ -122,17 +140,27 @@ export default function Dashboard() {
             </div>
 
             <div>
-                <label>Sort By: </label>
+                 <label className="mb-2 block text-sm font-medium text-slate-700">
+                            Sort By
+                        </label>
+
 
                 <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as SortOption)}
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 outline-none focus:border-blue-500"
                 >
                     <option value="title">Title (A-Z)</option>
                     <option value="dueDate">Due Date</option>
                     <option value="priority">Priority</option>
                 </select>
             </div>
+            </div>
+            </section>
+            <section>
+                <h2 className="mb-4 text-xl font-semibold text-slate-800">
+                    My Tasks ({sortedTasks.length})
+                </h2>
             <TaskList
                 tasks={sortedTasks}
 
@@ -154,6 +182,7 @@ export default function Dashboard() {
                     setEditingTask(task);
                 }}
             />
+            </section>
         </div>
     );
 }

@@ -44,69 +44,87 @@ function TaskForm({onSubmit,initialTask,onCancel}: TaskFormProps) {
             setDueDate("");
         }
     }
+const inputStyle =
+        "w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
 
+    const labelStyle =
+        "mb-2 block text-sm font-medium text-slate-700";
   return (
      <form onSubmit={handleSubmit}>
       <h2>{initialTask ? "Edit Task" : "Add New Task"}</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}
+
         <div>
-          <label>Task Title</label>
+          <label className={labelStyle}>Task Title</label>
           <input
             type="text"
             placeholder="Enter task title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className={inputStyle}
           />
         </div>
           <div>
-          <label>Task Description</label>
+          <label className={labelStyle}>Description</label>
           <textarea
             placeholder="Enter task description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
+             rows={3}
+            className={inputStyle}
           />
         </div>
-        <div>
-          <label>Task Priority</label>
+         <div>
+          <label className={labelStyle}>Priority</label>
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value as Priority)}
+             className={inputStyle}
           >
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
         </div>
-        <div>
-            <label>Status</label>
+           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <label className={labelStyle}>Status</label>
+        
             <select
                 value={status}
                 onChange={(event) =>
                 setStatus(event.target.value as Status)
-                }>
+                }
+                className={inputStyle}
+                >
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
             </select>
             </div>
         <div>
-          <label>Due Date</label>
+           <label className={labelStyle}>Due Date</label>
           <input
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
             required
+             className={inputStyle}
           />
         </div>
-
-        <button type="submit">{initialTask ? "Update Task" : "Add Task"}</button>
+          <div className="flex flex-wrap gap-3">
+        <button type="submit"
+        className="rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition hover:bg-blue-700"
+        >{initialTask ? "Update Task" : "Add Task"}</button>
         {/* Show the cancel button only when editing an existing task */}
         {initialTask && onCancel && (
-          <button type="button" onClick={onCancel}>
+          <button type="button" onClick={onCancel}
+         className="rounded-lg bg-slate-200 px-6 py-2.5 font-medium text-slate-700 transition hover:bg-slate-300"
+          >
             Cancel
           </button>
         )}
+        </div>
       </form>
   );
 }
