@@ -35,7 +35,11 @@ export default function Dashboard() {
     <div>
       <p>Manage your daily tasks in one place.</p>
 
-      <TaskForm />
+      <TaskForm onSubmit={(taskData) => {
+        const newTask: Task = {...taskData,id: Date.now().toString()};
+
+        setTasks([...tasks, newTask]);
+  }} />
 
     <TaskList
       tasks={tasks}
