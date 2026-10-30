@@ -1,5 +1,7 @@
 import { useState } from "react";
+import React from "react";
 import type { Priority,Status,TaskFormProps } from "../../types";
+import { validateTask } from "../../utils/taskUtils";
 
 // TaskForm component allows users to add a new task with title, description, priority, due date, and status.
 function TaskForm({onSubmit,initialTask,onCancel}: TaskFormProps) {
@@ -8,30 +10,45 @@ function TaskForm({onSubmit,initialTask,onCancel}: TaskFormProps) {
     const [priority, setPriority] = useState<Priority>(initialTask?.priority ?? "Medium");
     const [dueDate, setDueDate] = useState(initialTask?.dueDate ?? "");
     const [status, setStatus] = useState<Status>(initialTask?.status ?? "Pending");
+    const [error, setError] = useState<string | null>(null);
 
-  return (
-    <div>
-      <h2>{initialTask ? "Edit Task" : "Add New Task"}</h2>
-
-      <form onSubmit={(e) => {
+    function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if (!title.trim()) {
-        alert("Please enter a task title.");
-        return;
+        const validationError = validateTask(title, description);
+
+        if (validationError) {
+            setError(validationError);
+            return;
         }
-        if(!dueDate) {
-          alert("Please enter a due date.");
-          return;
+
+        if (!dueDate) {
+            setError("Due date is required.");
+            return;
         }
-          onSubmit({ title, description, priority, dueDate, status });
-          setTitle("");
-          setDescription("");
-          setPriority("Medium");
-          setStatus("Pending");
-          setDueDate("");
-        }}
-        >
+
+        setError("");
+        onSubmit({
+            title,
+            description,
+            status,
+            priority,
+            dueDate,
+        });
+
+        if (!initialTask) {
+            setTitle("");
+            setDescription("");
+            setStatus("Pending");
+            setPriority("Medium");
+            setDueDate("");
+        }
+    }
+
+  return (
+     <form onSubmit={handleSubmit}>
+      <h2>{initialTask ? "Edit Task" : "Add New Task"}</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
         <div>
           <label>Task Title</label>
           <input
@@ -91,7 +108,6 @@ function TaskForm({onSubmit,initialTask,onCancel}: TaskFormProps) {
           </button>
         )}
       </form>
-    </div>
   );
 }
 

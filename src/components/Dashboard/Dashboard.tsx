@@ -2,6 +2,7 @@ import type { Task, SortOption } from "../../types";
 import { useState } from "react";
 import TaskList from "../TaskList/TaskList";
 import TaskForm from "../TaskForm/TaskForm";
+
 import { filterTasks, sortTasks } from "../../utils/taskUtils";
 
 export default function Dashboard() {

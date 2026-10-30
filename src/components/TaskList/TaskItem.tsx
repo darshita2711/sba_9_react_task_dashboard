@@ -1,4 +1,6 @@
 import type { Task, Status } from "../../types";
+import { formatDate } from "../../utils/taskUtils";
+
 
 interface TaskItemProps {
   task: Task;
@@ -17,7 +19,7 @@ function TaskItem({ task, onUpdateStatus, onDeleteTask, onEditTask }: TaskItemPr
 
       <p>Priority: {task.priority}</p>
 
-      <p>Due Date: {task.dueDate}</p>
+      <p>Due Date: {formatDate(task.dueDate)}</p>
       <button
         onClick={() => onUpdateStatus(task.id, "Completed")}
       >
