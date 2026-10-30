@@ -1,32 +1,45 @@
-# React + TypeScript + Vite
+# Task Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A simple task management application built with React and TypeScript.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add new tasks
+- Edit and delete tasks
+- Search tasks
+- Filter tasks by status and priority
+- Sort tasks
+- Set task due dates
 
-## React Compiler
+## Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
 
-## Expanding the Oxlint configuration
+## How to Run
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+1. Clone the repository:
+   ```bash
+   git clone YOUR_GITHUB_REPOSITORY_URL
+   ```
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+2. Open the project folder:
+   ```bash
+   cd sba_9_react_task_dashboard
+   ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the application:
+   ```bash
+   npm run dev
+   ```
+
+## Author
+
+Darshita Vaghela
