@@ -14,7 +14,16 @@ function TaskForm({onSubmit}: TaskFormProps) {
       <h2>Add New Task</h2>
 
       <form onSubmit={(e) => {
-          e.preventDefault();
+        e.preventDefault();
+
+        if (!title.trim()) {
+        alert("Please enter a task title.");
+        return;
+        }
+        if(!dueDate) {
+          alert("Please enter a due date.");
+          return;
+        }
           onSubmit({ title, description, priority, dueDate, status });
           setTitle("");
           setDescription("");
@@ -30,6 +39,7 @@ function TaskForm({onSubmit}: TaskFormProps) {
             placeholder="Enter task title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
           <div>
@@ -69,6 +79,7 @@ function TaskForm({onSubmit}: TaskFormProps) {
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
+            required
           />
         </div>
 
