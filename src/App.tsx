@@ -1,14 +1,11 @@
-import './App.css'
-import { formatDate } from './utils/taskUtils';
-console.log("Testing Date Format:", formatDate('2026-11-01'));
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
-
   return (
-    <>
-    
-    </> 
-  )
+    <div>
+      <Dashboard />
+    </div>
+  );
 }
 
-export default App
+export default App;
