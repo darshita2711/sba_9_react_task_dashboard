@@ -1,6 +1,7 @@
 import type { Task } from "../../types";
 import { useState } from "react";
 import TaskList from "../TaskList/TaskList";
+import TaskForm from "../TaskForm/TaskForm";
 
 export default function Dashboard() {
     // Create one sample task
@@ -12,11 +13,29 @@ export default function Dashboard() {
       status: "Pending",
       priority: "High",
       dueDate: "2026-10-31"
-    }
+    },
+    {
+    id: "2",
+    title: "Practice JavaScript",
+    description: "Practice JavaScript functions",
+    status: "In Progress",
+    priority: "Medium",
+    dueDate: "2026-11-01"
+  },
+  {
+    id: "3",
+    title: "Complete CSS Lab",
+    description: "Finish the CSS assignment",
+    status: "Pending",
+    priority: "Low",
+    dueDate: "2026-11-02"
+  }
   ]);
   return (
     <div>
       <p>Manage your daily tasks in one place.</p>
+
+      <TaskForm />
 
     <TaskList
       tasks={tasks}
